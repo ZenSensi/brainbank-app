@@ -185,11 +185,11 @@ export default function HomeScreen() {
                 activeOpacity={0.9}
               >
                 <View style={[styles.featuredOverlay, idx === 1 && { backgroundColor: "rgba(103, 75, 181, 0.85)" }]} />
+                <View style={[styles.featuredTag, idx === 0 && { backgroundColor: COLORS.primary }, { position: "absolute", top: 16, left: 16, zIndex: 3 }]}>
+                  <Ionicons name="play-circle" size={14} color={COLORS.onPrimary} style={{ marginRight: 4 }} />
+                  <Text style={styles.featuredTagText}>Free</Text>
+                </View>
                 <View style={styles.featuredContent}>
-                  <View style={[styles.featuredTag, idx === 0 && { backgroundColor: COLORS.primary }]}>
-                    <Ionicons name="play-circle" size={14} color={COLORS.onPrimary} style={{ marginRight: 4 }} />
-                    <Text style={styles.featuredTagText}>Free</Text>
-                  </View>
                   <Ionicons
                     name={pl.icon as IoniconsName}
                     size={28}
