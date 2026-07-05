@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "165691575334",
+    "project_id": "brainbank-app",
+    "storage_bucket": "brainbank-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165691575334:android:b8b13ee97a888ae8a1aae7",
+        "android_client_info": {
+          "package_name": "com.brainbank.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMfBfJ9nvWeInanKOCp6uBfGaFdABxW64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
