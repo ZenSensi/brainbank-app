@@ -34,6 +34,22 @@ app.get("/", (_req, res) => {
   }
 });
 
+app.get("/contact", (_req, res) => {
+  res.sendFile(path.join(__dirname, "contact.html"));
+});
+
+app.get("/terms", (_req, res) => {
+  res.sendFile(path.join(__dirname, "terms.html"));
+});
+
+app.get("/privacy", (_req, res) => {
+  res.sendFile(path.join(__dirname, "privacy.html"));
+});
+
+app.get("/refunds", (_req, res) => {
+  res.sendFile(path.join(__dirname, "refunds.html"));
+});
+
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", timestamp: Date.now() });
 });

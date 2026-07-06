@@ -18,21 +18,21 @@
     <!-- Header / Navbar -->
     <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
+            <a href="/" class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-[#674bb5] flex items-center justify-center shadow-md">
                     <!-- Clean White Graduation Cap & Book symbol representation -->
                     <span class="text-white text-xl font-bold">B</span>
                 </div>
                 <span class="text-xl font-bold text-slate-900">Brain Bank</span>
-            </div>
+            </a>
             <nav class="hidden md:flex gap-6 text-sm font-semibold text-slate-600">
                 <a href="#about" class="hover:text-[#674bb5] transition">About</a>
-                <a href="#contact" class="hover:text-[#674bb5] transition">Contact</a>
-                <a href="#terms" class="hover:text-[#674bb5] transition">Terms</a>
-                <a href="#privacy" class="hover:text-[#674bb5] transition">Privacy</a>
-                <a href="#refunds" class="hover:text-[#674bb5] transition">Refund Policy</a>
+                <a href="/contact" class="hover:text-[#674bb5] transition">Contact</a>
+                <a href="/terms" class="hover:text-[#674bb5] transition">Terms</a>
+                <a href="/privacy" class="hover:text-[#674bb5] transition">Privacy</a>
+                <a href="/refunds" class="hover:text-[#674bb5] transition">Refund Policy</a>
             </nav>
-            <a href="#contact" class="bg-[#674bb5] hover:bg-[#573fa0] text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-sm transition">Support</a>
+            <a href="/contact" class="bg-[#674bb5] hover:bg-[#573fa0] text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-sm transition">Support</a>
         </div>
     </header>
 
@@ -47,7 +47,7 @@
         </p>
         <div class="mt-8 flex justify-center gap-4">
             <a href="/app-release.apk" download class="bg-[#674bb5] hover:bg-[#573fa0] text-white font-semibold px-6 py-3 rounded-xl shadow-md transition">Download APK</a>
-            <a href="#terms" class="border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-xl transition">View Policies</a>
+            <a href="/terms" class="border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-xl transition">View Policies</a>
         </div>
     </section>
 
@@ -75,63 +75,7 @@
         </div>
     </section>
 
-    <!-- Policies Accordion / Compliance Section -->
-    <section class="py-20 px-6 max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-slate-900 text-center mb-12">Terms, Privacy & Refund Policies</h2>
 
-        <!-- Contact Us -->
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 mb-6 shadow-sm scroll-mt-24" id="contact">
-            <h3 class="text-lg font-semibold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                📞 Contact Us / Support
-            </h3>
-            <div class="text-slate-600 text-sm mt-4 space-y-2">
-                <p>If you have any questions or support requests, please contact us:</p>
-                <p><strong>App Owner Name:</strong> Arnabh Kushwaha</p>
-                <p><strong>Support Email:</strong> arnabh.kushwaha.bca@gmail.com</p>
-                <p><strong>Contact Phone:</strong> +91 73769 56844</p>
-                <p><strong>Address:</strong> BCA Department, College Campus, India</p>
-            </div>
-        </div>
-
-        <!-- Terms and Conditions -->
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 mb-6 shadow-sm scroll-mt-24" id="terms">
-            <h3 class="text-lg font-semibold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                📄 Terms & Conditions
-            </h3>
-            <div class="text-slate-600 text-sm mt-4 space-y-3 leading-relaxed">
-                <p>Welcome to Brain Bank. By downloading or using our mobile application, you agree to comply with the following terms:</p>
-                <p><strong>1. Account Security:</strong> You are responsible for maintaining the confidentiality of your login details. Sharing accounts to distribute paid notes is prohibited.</p>
-                <p><strong>2. Use of Study Materials:</strong> All notes, handbooks, and study resources are licensed for individual educational use only. You may not re-sell, distribute, or publish these notes publicly.</p>
-                <p><strong>3. Payments & Fees:</strong> Payments are processed securely via Razorpay. We do not store your credit card or payment credentials on our servers.</p>
-            </div>
-        </div>
-
-        <!-- Privacy Policy -->
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 mb-6 shadow-sm scroll-mt-24" id="privacy">
-            <h3 class="text-lg font-semibold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                🛡️ Privacy Policy
-            </h3>
-            <div class="text-slate-600 text-sm mt-4 space-y-3 leading-relaxed">
-                <p>Your privacy is important to us. This policy details how we collect and use your data:</p>
-                <p><strong>1. Data Collection:</strong> We collect your name, email address, and phone number when you register to keep your purchases synced across devices.</p>
-                <p><strong>2. Data Usage:</strong> Your details are solely used to authenticate your login, manage your active purchases, and send payment receipts. We never sell your personal information to third parties.</p>
-                <p><strong>3. Security:</strong> We store your data securely in Firebase and encrypt transaction details using industry-standard protocols.</p>
-            </div>
-        </div>
-
-        <!-- Refund Policy -->
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 mb-6 shadow-sm scroll-mt-24" id="refunds">
-            <h3 class="text-lg font-semibold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                💸 Refund & Cancellation Policy
-            </h3>
-            <div class="text-slate-600 text-sm mt-4 space-y-3 leading-relaxed">
-                <p>Please review our refund guidelines for digital products:</p>
-                <p><strong>1. Digital Goods:</strong> Since notes and PYQs are downloadable digital PDF goods, we generally do not issue refunds once access has been successfully granted.</p>
-                <p><strong>2. Failed Transactions:</strong> If your bank account is debited but you do not receive the item due to a technical error, we will verify the transaction status and automatically credit access, or process a full refund to your original payment method within 5 to 7 working days.</p>
-                <p><strong>3. Support:</strong> For payment failure assistance, write to us at arnabh.kushwaha.bca@gmail.com with your payment ID.</p>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs">
