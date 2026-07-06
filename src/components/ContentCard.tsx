@@ -45,7 +45,6 @@ export default function ContentCard({ item, onPress, isOwned = false }: Props) {
         <Text style={styles.type}>{item.type.toUpperCase()}</Text>
         <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
         <Text style={styles.subject} numberOfLines={1}>{item.subjectName}</Text>
-        <Text style={styles.downloads}>{item.downloadCount} downloads</Text>
       </View>
     </TouchableOpacity>
   );
@@ -112,9 +111,5 @@ const styles = StyleSheet.create({
     fontSize: FONTS.small,
     color: COLORS.textSecondary,
     marginBottom: 2,
-  },
-  downloads: {
-    fontSize: FONTS.tiny,
-    color: COLORS.textLight,
   },
 });

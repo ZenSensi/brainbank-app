@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Image } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../../src/contexts/AuthContext";
 import { usePayment } from "../../src/contexts/PaymentContext";
 import { getContentById } from "../../src/services/contentService";
-import { addRecentlyViewed } from "../../src/services/recentService";
+import { addRecentlyViewed, removeRecentlyViewed } from "../../src/services/recentService";
 import { isContentPurchased } from "../../src/services/purchaseService";
 import { isItemSaved, toggleSaveItem } from "../../src/services/saveService";
 import { ContentItem } from "../../src/types";
@@ -33,15 +33,22 @@ export default function ContentDetailScreen() {
         await addRecentlyViewed(content);
         const saved = await isItemSaved(content.id);
         setIsSaved(saved);
-      }
 
-      if (user && content) {
-        if (user.isMember) {
-          setIsOwned(true);
-        } else {
-          const owned = await isContentPurchased(user.id, id);
-          setIsOwned(owned);
+        if (user) {
+          if (user.isMember) {
+            setIsOwned(true);
+          } else {
+            const owned = await isContentPurchased(user.id, id);
+            setIsOwned(owned);
+          }
         }
+      } else {
+        await removeRecentlyViewed(id);
+        Alert.alert(
+          "Content Not Found",
+          "This content may have been updated or removed.",
+          [{ text: "OK", onPress: () => router.back() }]
+        );
       }
     } catch { }
     setLoading(false);
@@ -136,24 +143,27 @@ export default function ContentDetailScreen() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.imagePlaceholder}>
-        <Ionicons 
-          name={isVideo ? "play-circle" : item.type === "notes" ? "document-text" : "document"} 
-          size={56} 
-          color={COLORS.primary} 
+      {item.thumbnailUrl ? (
+        <Image
+          source={{ uri: item.thumbnailUrl }}
+          style={styles.imageHeader}
+          resizeMode="cover"
         />
-      </View>
+      ) : (
+        <View style={styles.imagePlaceholder}>
+          <Ionicons 
+            name={isVideo ? "play-circle" : item.type === "notes" ? "document-text" : "document"} 
+            size={56} 
+            color={COLORS.primary} 
+          />
+        </View>
+      )}
 
       <View style={styles.info}>
         <View style={styles.badgeRow}>
           <View style={[styles.badge, isVideo ? styles.videoBadge : styles.pdfBadge]}>
             <Text style={styles.badgeText}>{isVideo ? "FREE VIDEO" : item.type.toUpperCase()}</Text>
           </View>
-          {item.semester && (
-            <View style={styles.semBadge}>
-              <Text style={styles.semBadgeText}>Semester {item.semester}</Text>
-            </View>
-          )}
         </View>
 
         <Text style={styles.title}>{item.title}</Text>
@@ -163,11 +173,6 @@ export default function ContentDetailScreen() {
         )}
 
         <Text style={styles.desc}>{item.description}</Text>
-
-        <View style={styles.stats}>
-          <Ionicons name="download-outline" size={16} color={COLORS.outline} style={{ marginRight: 6 }} />
-          <Text style={styles.statText}>{item.downloadCount} downloads</Text>
-        </View>
 
         {isVideo ? (
           <TouchableOpacity style={styles.watchBtn}>
@@ -246,6 +251,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surfaceContainer,
     alignItems: "center",
     justifyContent: "center",
+  },
+  imageHeader: {
+    width: "100%",
+    height: 220,
   },
   imageEmoji: {
     fontSize: 64,

@@ -42,3 +42,16 @@ export async function clearRecentlyViewed(): Promise<void> {
     console.error("Error clearing recently viewed:", error);
   }
 }
+
+export async function removeRecentlyViewed(id: string): Promise<void> {
+  try {
+    const stored = await AsyncStorage.getItem(RECENTLY_VIEWED_KEY);
+    if (!stored) return;
+    let items: ContentItem[] = JSON.parse(stored);
+    items = items.filter((i) => i.id !== id);
+    await AsyncStorage.setItem(RECENTLY_VIEWED_KEY, JSON.stringify(items));
+  } catch (error) {
+    console.error("Error removing recently viewed:", error);
+  }
+}
+
