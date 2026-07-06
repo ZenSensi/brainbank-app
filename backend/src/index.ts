@@ -22,32 +22,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/", (_req, res) => {
-  try {
-    const htmlPath = path.join(__dirname, "landing.html");
-    if (fs.existsSync(htmlPath)) {
-      res.sendFile(htmlPath);
-    } else {
-      res.send("<h1>Brain Bank API is running</h1>");
-    }
-  } catch (error) {
-    res.status(500).send("Error loading landing page");
-  }
-});
-
-app.get("/contact", (_req, res) => {
-  res.sendFile(path.join(__dirname, "contact.html"));
-});
-
-app.get("/terms", (_req, res) => {
-  res.sendFile(path.join(__dirname, "terms.html"));
-});
-
-app.get("/privacy", (_req, res) => {
-  res.sendFile(path.join(__dirname, "privacy.html"));
-});
-
-app.get("/refunds", (_req, res) => {
-  res.sendFile(path.join(__dirname, "refunds.html"));
+  res.send("<h1>Brain Bank API is running</h1>");
 });
 
 app.get("/health", (_req, res) => {
