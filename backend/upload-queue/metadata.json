@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://drive.google.com/file/d/1qhfEIJecYBUsWj3252MoUgf_fk-sPZoD/view?usp=sharing",
+    "title": "Python Chapter Wise Notes",
+    "description": "Comprehensive study notes covering Python variables, functions, OOP, exceptions, and scripting.",
+    "type": "notes",
+    "subjectId": "python",
+    "subjectName": "Python",
+    "semester": 3,
+    "price": 20
+  },
+  {
+    "url": "https://drive.google.com/file/d/1Pzw6YQSNj--BD4egZ1NtrLkF6j6fN1I8/view?usp=sharing",
+    "title": "Java Chapter Wise Notes",
+    "description": "Complete Core Java notes covering objects, inheritance, interface implementations, and packages.",
+    "type": "notes",
+    "subjectId": "java",
+    "subjectName": "Java",
+    "semester": 4,
+    "price": 20
+  },
+  {
+    "url": "https://drive.google.com/file/d/1uEuLGPtPwanb2IgPXmKa8dJIdzzWv8xP/view?usp=sharing",
+    "title": "HTML Chapter Wise Notes",
+    "description": "Complete HTML study notes covering layouts, templates, tags, forms, and structuring.",
+    "type": "notes",
+    "subjectId": "html",
+    "subjectName": "HTML",
+    "semester": 1,
+    "price": 20
+  },
+  {
+    "url": "https://drive.google.com/file/d/168Lx-_kx8NpnsdoRc7hD0xKvzsglNErs/view?usp=sharing",
+    "title": "CSS Chapter Wise Notes",
+    "description": "Comprehensive stylesheet guidelines covering box-model, Flexbox, Grid, and layouts.",
+    "type": "notes",
+    "subjectId": "css",
+    "subjectName": "CSS",
+    "semester": 1,
+    "price": 20
+  },
+  {
+    "url": "https://drive.google.com/file/d/1RLRhRnbYdZ7G1HRlLpxkSOi3HEqgmshj/view?usp=sharing",
+    "title": "JavaScript Chapter Wise Notes",
+    "description": "JavaScript study guides covering ES6 variables, closures, DOM manipulation, and promises.",
+    "type": "notes",
+    "subjectId": "javascript",
+    "subjectName": "JavaScript",
+    "semester": 2,
+    "price": 20
+  },
+  {
+    "url": "https://drive.google.com/file/d/1f7pJZFZUkuHiiyYSIxBAgSycI8W2w2AX/view?usp=sharing",
+    "title": "MySQL Handbook",
+    "description": "Comprehensive MySQL database handbook covering queries, joins, indices, and administration.",
+    "type": "notes",
+    "subjectId": "sql",
+    "subjectName": "SQL",
+    "semester": 3,
+    "price": 20
+  }
+]

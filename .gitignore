@@ -40,5 +40,6 @@ yarn-error.*
 /ios
 /android
 
-# Ignore backend folder
-backend/
+# Ignore backend secrets
+backend/.env
+
