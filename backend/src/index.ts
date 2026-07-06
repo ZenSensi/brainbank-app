@@ -18,6 +18,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, "../public")));
+
 app.get("/", (_req, res) => {
   try {
     const htmlPath = path.join(__dirname, "landing.html");
