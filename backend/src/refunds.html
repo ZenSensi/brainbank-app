@@ -9,22 +9,34 @@
     <style>
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #f9f9ff;
+            background-color: #f8fafc;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
-    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-3">
-                <img src="/icon.png" alt="Brain Bank Logo" class="w-10 h-10 rounded-xl shadow-md">
-                <span class="text-xl font-bold text-slate-900">Brain Bank</span>
+    <header class="glass-nav border-b border-slate-200/50 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 grid grid-cols-3 items-center">
+            <!-- Left: Logo -->
+            <a href="/" class="flex items-center gap-3 justify-start group">
+                <img src="/icon.png" alt="Logo" class="w-10 h-10 rounded-xl shadow-sm border border-slate-100 group-hover:scale-105 transition-transform" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=B+B&background=4f46e5&color=fff&rounded=true';">
+                <span class="text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">Brain Bank</span>
             </a>
-            <nav class="hidden md:flex gap-6 text-sm font-semibold text-slate-600">
-                <a href="/" class="hover:text-[#674bb5] transition">Home</a>
-                <a href="/contact" class="hover:text-[#674bb5] transition">Contact</a>
+            
+            <!-- Center: Nav -->
+            <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-600 justify-center">
+                <a href="/" class="hover:text-indigo-600 transition-colors">Home</a>
+                <a href="/contact" class="hover:text-indigo-600 transition-colors">Contact</a>
             </nav>
-            <a href="/app-release.apk" download class="bg-[#674bb5] hover:bg-[#573fa0] text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-sm transition">Download App</a>
+            
+            <!-- Right: Action -->
+            <div class="flex justify-end">
+                <a href="/app-release.apk" download class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">Download App</a>
+            </div>
         </div>
     </header>
 
