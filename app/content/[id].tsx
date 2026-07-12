@@ -107,6 +107,11 @@ export default function ContentDetailScreen() {
         pathname: "/payment/checkout",
         params: { url: fileUrl, title: item.title },
       });
+    } else {
+      Alert.alert(
+        "Coming Soon! 🚀",
+        "This content is upcoming and will be uploaded shortly. Since you have unlocked it, you will be able to view and download it here the moment it is uploaded."
+      );
     }
   };
 
