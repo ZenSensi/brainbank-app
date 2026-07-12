@@ -283,7 +283,7 @@ export async function createUpiOrder(req: AuthRequest, res: Response) {
       return res.status(400).json({ error: "amount is required" });
     }
 
-    if (!contentId && (!type || type === "membership")) {
+    if (!contentId && type !== "membership") {
       return res.status(400).json({ error: "contentId is required for content orders" });
     }
 
