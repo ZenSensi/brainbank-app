@@ -46,7 +46,9 @@
             "usesGoogleServices": true,
             "minSdkVersion": 24,
             "compileSdkVersion": 36,
-            "targetSdkVersion": 36
+            "targetSdkVersion": 36,
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
           },
           "ios": {
             "useFrameworks": "static"
