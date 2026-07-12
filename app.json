@@ -3,6 +3,12 @@
     "name": "Brain Bank",
     "slug": "brainbank",
     "version": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/7024bf6e-250e-4c7a-80ae-647819031d1d"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "brainbank",
