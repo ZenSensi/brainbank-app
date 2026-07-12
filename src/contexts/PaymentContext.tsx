@@ -142,17 +142,13 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
 
       // 2. Open UPI deep link
       try {
-        const supported = await Linking.canOpenURL(upiUrl);
-        if (supported) {
-          await Linking.openURL(upiUrl);
-        } else {
-          Alert.alert(
-            "UPI Link Generated",
-            `No direct UPI application detected. On a physical device, this will open GPay/PhonePe.\n\nUPI VPA: ${process.env.EXPO_PUBLIC_UPI_ID || "brainbank@okaxis"}\nAmount: ₹${amount}`
-          );
-        }
+        await Linking.openURL(upiUrl);
       } catch (err) {
-        console.warn("Failed to open UPI link", err);
+        console.warn("Failed to open UPI link directly", err);
+        Alert.alert(
+          "UPI App Redirect",
+          `We couldn't launch your UPI app automatically. Please open GPay, PhonePe, FamPay, or Paytm, and pay manually to:\n\nUPI ID: ${process.env.EXPO_PUBLIC_UPI_ID || "royalfantasyyt@okicici"}\nAmount: ₹${amount}\n\nMake sure to copy the 12-digit UTR transaction code after paying.`
+        );
       }
 
       // 3. Show the UTR Modal and await resolution
@@ -265,11 +261,11 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
               <Text style={styles.modalTitle}>Confirm UPI Payment</Text>
               
               <Text style={styles.instructionsText}>
-                We opened your UPI apps to pay <Text style={styles.amountText}>₹{paymentAmount}</Text>.
+                We opened your UPI app (GPay, PhonePe, FamPay, Paytm, etc.) to pay <Text style={styles.amountText}>₹{paymentAmount}</Text>.
               </Text>
 
               <Text style={styles.subInstructionsText}>
-                Once paid, copy the <Text style={{fontWeight: "bold"}}>12-digit UPI Reference No. (UTR)</Text> from your UPI app's transaction history and paste it below:
+                Once paid, copy the <Text style={{fontWeight: "bold"}}>12-digit UPI Reference No. (UTR)</Text> from your payment app's transaction history and paste it below:
               </Text>
 
               <TextInput

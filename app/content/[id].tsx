@@ -74,7 +74,7 @@ export default function ContentDetailScreen() {
     // Show confirmation before opening UPI app
     Alert.alert(
       `Unlock ${typeLabel}`,
-      `Pay ${CURRENCY_SYMBOL}${price} to unlock "${item.title}"\n\nYou will be redirected to your UPI app (GPay, PhonePe, Paytm, etc.) to complete the payment.`,
+      `Pay ${CURRENCY_SYMBOL}${price} to unlock "${item.title}"\n\nYou will be redirected to your UPI app (GPay, PhonePe, FamPay, etc.) to complete the payment.\n\n⚠️ IMPORTANT: After payment, please COPY the 12-digit UPI Reference No. (UTR) from your payment app's history. You will need to paste it in the next screen to unlock your content.`,
       [
         { text: "Cancel", style: "cancel" },
         {

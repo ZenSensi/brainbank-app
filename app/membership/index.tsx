@@ -17,16 +17,34 @@ export default function MembershipScreen() {
       return;
     }
 
-    setLoading(true);
-    const success = await processMembership();
-    if (success) {
-      Alert.alert(
-        "Welcome to Premium! 🎉",
-        "You now have lifetime access to all current and future content.",
-        [{ text: "Awesome!", onPress: () => router.back() }]
-      );
-    }
-    setLoading(false);
+    Alert.alert(
+      "Unlock Lifetime Membership",
+      `Pay ${CURRENCY_SYMBOL}${MEMBERSHIP_PRICE} to get lifetime access.\n\nYou will be redirected to your UPI app (GPay, PhonePe, FamPay, etc.) to complete the payment.\n\n⚠️ IMPORTANT: After payment, please COPY the 12-digit UPI Reference No. (UTR) from your payment app's history. You will need to paste it in the next screen to unlock your membership.`,
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: `Pay ${CURRENCY_SYMBOL}${MEMBERSHIP_PRICE}`,
+          style: "default",
+          onPress: async () => {
+            setLoading(true);
+            const success = await processMembership();
+            if (success) {
+              Alert.alert(
+                "Welcome to Premium! 🎉",
+                "You now have lifetime access to all current and future content.",
+                [{ text: "Awesome!", onPress: () => router.back() }]
+              );
+            } else {
+              Alert.alert(
+                "Payment Incomplete",
+                "If you completed the payment, please wait a moment and refresh. If not, you can try again."
+              );
+            }
+            setLoading(false);
+          }
+        }
+      ]
+    );
   };
 
   return (
