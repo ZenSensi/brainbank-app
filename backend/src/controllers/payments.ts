@@ -274,3 +274,140 @@ export async function paymentCallback(req: any, res: Response) {
     </html>
   `);
 }
+
+export async function createUpiOrder(req: AuthRequest, res: Response) {
+  try {
+    const { contentId, amount, type } = req.body;
+
+    if (!amount) {
+      return res.status(400).json({ error: "amount is required" });
+    }
+
+    if (!contentId && (!type || type === "membership")) {
+      return res.status(400).json({ error: "contentId is required for content orders" });
+    }
+
+    const upiId = process.env.UPI_ID || "brainbank@okaxis";
+    const upiName = process.env.UPI_NAME || "Brain Bank";
+
+    // Generate a unique transaction reference ID
+    const transactionId = "TXN_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+
+    const userId = req.userId!;
+    const purchaseType = type === "pyq" ? "pyq" : type === "membership" ? "membership" : "notes";
+
+    // Save initial pending purchase record in Firestore
+    const purchaseData: any = {
+      userId,
+      amount: Number(amount),
+      status: "pending",
+      paymentId: transactionId,
+      createdAt: Date.now(),
+      type: purchaseType,
+    };
+
+    if (purchaseType !== "membership" && contentId) {
+      purchaseData.contentId = contentId;
+    }
+
+    await db.collection("purchases").add(purchaseData);
+
+    // Format the standard upi://pay intent URL
+    const encodedName = encodeURIComponent(upiName);
+    const description = purchaseType === "membership"
+      ? "Brain Bank Lifetime Membership"
+      : purchaseType === "pyq"
+        ? "Purchase BCA PYQ Paper"
+        : "Purchase BCA Notes";
+    const encodedDesc = encodeURIComponent(description);
+
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodedName}&am=${amount}&cu=INR&tn=${encodedDesc}&tr=${transactionId}`;
+
+    return res.json({
+      transactionId,
+      upiUrl,
+      amount,
+      currency: "INR",
+    });
+  } catch (error: any) {
+    console.error("Create UPI order error:", error);
+    return res.status(500).json({ error: error.message || "Failed to create UPI order" });
+  }
+}
+
+export async function verifyUpiPayment(req: AuthRequest, res: Response) {
+  try {
+    const { transactionId, utr } = req.body;
+
+    if (!transactionId || !utr) {
+      return res.status(400).json({ error: "transactionId and utr are required" });
+    }
+
+    // Validate UTR is exactly 12 digits
+    if (!/^\d{12}$/.test(utr)) {
+      return res.status(400).json({ error: "Invalid UTR format. Must be a 12-digit number." });
+    }
+
+    // Find pending transaction in Firestore
+    const purchasesSnap = await db.collection("purchases")
+      .where("paymentId", "==", transactionId)
+      .where("userId", "==", req.userId!)
+      .get();
+
+    if (purchasesSnap.empty) {
+      return res.status(404).json({ error: "Transaction reference not found" });
+    }
+
+    const purchaseDoc = purchasesSnap.docs[0];
+    const purchaseData = purchaseDoc.data();
+
+    if (purchaseData.status === "completed") {
+      return res.json({ success: true, status: "completed", message: "Purchase already completed." });
+    }
+
+    // Read auto-approve setting
+    const autoApprove = process.env.AUTO_APPROVE_UPI !== "false";
+    const targetStatus = autoApprove ? "completed" : "pending_verification";
+
+    await purchaseDoc.ref.update({
+      status: targetStatus,
+      utr: utr,
+      paymentId: utr, // Swap transactionId for verified UTR
+      submittedAt: Date.now(),
+      ...(autoApprove ? { completedAt: Date.now() } : {})
+    });
+
+    if (targetStatus === "completed") {
+      const userId = req.userId!;
+      
+      if (purchaseData.type === "membership") {
+        await db.collection("users").doc(userId).update({
+          isMember: true,
+          memberSince: Date.now(),
+        });
+        console.log(`UPI: Membership activated for user ${userId} via UTR ${utr}`);
+      } else if (purchaseData.contentId) {
+        await db.collection("purchases").doc(purchaseDoc.id).update({
+          status: "completed"
+        });
+        
+        await db.collection("content").doc(purchaseData.contentId).update({
+          downloadCount: admin.firestore.FieldValue.increment(1),
+        });
+        console.log(`UPI: Content ${purchaseData.contentId} unlocked for user ${userId} via UTR ${utr}`);
+      }
+    }
+
+    return res.json({
+      success: true,
+      status: targetStatus,
+      message: autoApprove
+        ? "Payment verified and unlocked successfully!"
+        : "Payment submitted. Your purchase will be unlocked once approved by our admin."
+    });
+  } catch (error: any) {
+    console.error("Verify UPI payment error:", error);
+    return res.status(500).json({ error: error.message || "Failed to verify UPI payment" });
+  }
+}
+

@@ -71,10 +71,10 @@ export default function ContentDetailScreen() {
     const purchaseType = item.type === "pyq" ? "pyq" as const : "notes" as const;
     const typeLabel = item.type === "pyq" ? "PYQ Paper" : "Notes";
 
-    // Show confirmation before opening Razorpay
+    // Show confirmation before opening UPI app
     Alert.alert(
       `Unlock ${typeLabel}`,
-      `Pay ${CURRENCY_SYMBOL}${price} to unlock "${item.title}"\n\nYou'll be redirected to Razorpay where you can pay via GPay, UPI, Cards, Net Banking and more.`,
+      `Pay ${CURRENCY_SYMBOL}${price} to unlock "${item.title}"\n\nYou will be redirected to your UPI app (GPay, PhonePe, Paytm, etc.) to complete the payment.`,
       [
         { text: "Cancel", style: "cancel" },
         {
