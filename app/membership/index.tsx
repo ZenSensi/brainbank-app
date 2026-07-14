@@ -18,12 +18,12 @@ export default function MembershipScreen() {
     }
 
     Alert.alert(
-      "Unlock Lifetime Membership",
-      `Pay ${CURRENCY_SYMBOL}${MEMBERSHIP_PRICE} to get lifetime access.\n\nYou will be redirected to your UPI app (GPay, PhonePe, FamPay, etc.) to complete the payment.\n\n⚠️ IMPORTANT: After payment, please COPY the 12-digit UPI Reference No. (UTR) from your payment app's history. You will need to paste it in the next screen to unlock your membership.`,
+      "⚠️ Copy UTR After Payment!",
+      `To unlock your Lifetime Membership, please follow these steps:\n\n1. Complete the payment of ${CURRENCY_SYMBOL}${MEMBERSHIP_PRICE} inside your UPI app.\n2. COPY the 12-digit UPI Reference / UTR Number from your payment app's transaction history.\n3. Return here and paste the 12-digit UTR to verify and unlock your membership.\n\nReady to pay?`,
       [
         { text: "Cancel", style: "cancel" },
         {
-          text: `Pay ${CURRENCY_SYMBOL}${MEMBERSHIP_PRICE}`,
+          text: "Yes, Let's Pay",
           style: "default",
           onPress: async () => {
             setLoading(true);

@@ -73,12 +73,12 @@ export default function ContentDetailScreen() {
 
     // Show confirmation before opening UPI app
     Alert.alert(
-      `Unlock ${typeLabel}`,
-      `Pay ${CURRENCY_SYMBOL}${price} to unlock "${item.title}"\n\nYou will be redirected to your UPI app (GPay, PhonePe, FamPay, etc.) to complete the payment.\n\n⚠️ IMPORTANT: After payment, please COPY the 12-digit UPI Reference No. (UTR) from your payment app's history. You will need to paste it in the next screen to unlock your content.`,
+      "⚠️ Copy UTR After Payment!",
+      `To unlock your ${typeLabel}, please follow these steps:\n\n1. Complete the payment of ${CURRENCY_SYMBOL}${price} inside your UPI app.\n2. COPY the 12-digit UPI Reference / UTR Number from your payment app's transaction history.\n3. Return here and paste the 12-digit UTR to verify and unlock your content.\n\nReady to pay?`,
       [
         { text: "Cancel", style: "cancel" },
         {
-          text: `Pay ${CURRENCY_SYMBOL}${price}`,
+          text: "Yes, Let's Pay",
           style: "default",
           onPress: async () => {
             const success = await processPayment(price, `Brain Bank - ${item.title}`, item.id, purchaseType);

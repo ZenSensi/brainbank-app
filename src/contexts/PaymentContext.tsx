@@ -258,14 +258,14 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
             style={styles.modalOverlay}
           >
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Confirm UPI Payment</Text>
+              <Text style={styles.modalTitle}>⚠️ Enter UTR to Verify</Text>
               
               <Text style={styles.instructionsText}>
-                We opened your UPI app (GPay, PhonePe, FamPay, Paytm, etc.) to pay <Text style={styles.amountText}>₹{paymentAmount}</Text>.
+                We opened your UPI app to pay <Text style={styles.amountText}>₹{paymentAmount}</Text>.
               </Text>
 
               <Text style={styles.subInstructionsText}>
-                Once paid, copy the <Text style={{fontWeight: "bold"}}>12-digit UPI Reference No. (UTR)</Text> from your payment app's transaction history and paste it below:
+                Copy the <Text style={{fontWeight: "bold"}}>12-digit UPI Reference / UTR Number</Text> from Google Pay, PhonePe, FamPay, or Paytm transaction history and paste it below to verify your payment:
               </Text>
 
               <TextInput
