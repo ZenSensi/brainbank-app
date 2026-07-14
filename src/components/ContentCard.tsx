@@ -12,7 +12,7 @@ interface Props {
 
 export default function ContentCard({ item, onPress, isOwned = false }: Props) {
   const isVideo = item.type === "video";
-  const price = item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE;
+  const price = item.price || (item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE);
 
   let badgeLabel: string;
   let badgeStyle: object;

@@ -67,7 +67,7 @@ export default function ContentDetailScreen() {
     }
     if (!item) return;
 
-    const price = item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE;
+    const price = item.price || (item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE);
     const purchaseType = item.type === "pyq" ? "pyq" as const : "notes" as const;
     const typeLabel = item.type === "pyq" ? "PYQ Paper" : "Notes";
 
@@ -188,12 +188,12 @@ export default function ContentDetailScreen() {
           <View>
             <View style={styles.priceRow}>
               <Text style={styles.price}>
-                {CURRENCY_SYMBOL}{item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE}
+                {CURRENCY_SYMBOL}{item.price || (item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE)}
               </Text>
               <Text style={styles.priceLabel}>one-time unlock</Text>
             </View>
             <TouchableOpacity style={styles.buyBtn} onPress={handlePurchase}>
-              <Text style={styles.buyBtnText}>Unlock for {CURRENCY_SYMBOL}{item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE}</Text>
+              <Text style={styles.buyBtnText}>Unlock for {CURRENCY_SYMBOL}{item.price || (item.type === "pyq" ? PYQ_PRICE : NOTES_PRICE)}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.membershipBtn}
