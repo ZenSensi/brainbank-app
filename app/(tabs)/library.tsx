@@ -25,17 +25,22 @@ function getDailyQuote() {
 
 type IoniconsName = React.ComponentProps<typeof Ionicons>["name"];
 
+// In-memory cache to save loaded library content across focus events
+let cachedPurchasedContent: ContentItem[] | null = null;
+
 export default function LibraryScreen() {
   const { user } = useAuth();
-  const [purchasedContent, setPurchasedContent] = useState<ContentItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [purchasedContent, setPurchasedContent] = useState<ContentItem[]>(cachedPurchasedContent || []);
+  const [loading, setLoading] = useState(cachedPurchasedContent === null);
 
   const loadPurchasedContent = useCallback(async () => {
     if (!user) {
       setLoading(false);
       return;
     }
-    setLoading(true);
+    if (purchasedContent.length === 0) {
+      setLoading(true);
+    }
     try {
       const purchases = await getUserPurchases(user.id);
       const contentIds = purchases
@@ -45,10 +50,12 @@ export default function LibraryScreen() {
       const items = await Promise.all(
         contentIds.map((id: string) => getContentById(id))
       );
-      setPurchasedContent(items.filter((item): item is ContentItem => item !== null));
+      const validItems = items.filter((item): item is ContentItem => item !== null);
+      cachedPurchasedContent = validItems;
+      setPurchasedContent(validItems);
     } catch {}
     setLoading(false);
-  }, [user]);
+  }, [user, purchasedContent.length]);
 
   // Refresh whenever this tab gains focus
   useFocusEffect(

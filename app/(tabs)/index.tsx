@@ -19,10 +19,14 @@ import { ContentItem } from "../../src/types";
 
 type IoniconsName = React.ComponentProps<typeof Ionicons>["name"];
 
+// In-memory cache to save loaded homepage lists across mounts
+let cachedRecentViewed: ContentItem[] | null = null;
+let cachedRecentDbContent: ContentItem[] | null = null;
+
 export default function HomeScreen() {
   const { user } = useAuth();
-  const [recentContent, setRecentContent] = useState<ContentItem[]>([]);
-  const [notes, setNotes] = useState<ContentItem[]>([]);
+  const [recentContent, setRecentContent] = useState<ContentItem[]>(cachedRecentViewed || []);
+  const [notes, setNotes] = useState<ContentItem[]>(cachedRecentDbContent ? cachedRecentDbContent.filter((item) => item.type === "notes") : []);
   const [refreshing, setRefreshing] = useState(false);
   const [purchasedIds, setPurchasedIds] = useState<Set<string>>(new Set());
 
@@ -32,6 +36,8 @@ export default function HomeScreen() {
         getRecentlyViewed(),
         getRecentContent(),
       ]);
+      cachedRecentViewed = recent;
+      cachedRecentDbContent = dbRecent;
       setRecentContent(recent);
       setNotes(dbRecent.filter((item) => item.type === "notes"));
 

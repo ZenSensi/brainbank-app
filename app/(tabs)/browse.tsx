@@ -21,10 +21,13 @@ const filterOptions = [
   { key: "playlists", label: "Playlists", icon: "play-circle" as IoniconsName },
 ];
 
+// In-memory cache to save fetched content list across screen mounts
+let cachedContent: ContentItem[] | null = null;
+
 export default function BrowseScreen() {
   const { user } = useAuth();
-  const [content, setContent] = useState<ContentItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [content, setContent] = useState<ContentItem[]>(cachedContent || []);
+  const [loading, setLoading] = useState(cachedContent === null);
   const [filterType, setFilterType] = useState<"all" | "notes" | "pyq" | "video">("notes");
   const [activeTab, setActiveTab] = useState(0);
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
@@ -50,9 +53,12 @@ export default function BrowseScreen() {
   }, [user]);
 
   const loadContent = async () => {
-    setLoading(true);
+    if (content.length === 0) {
+      setLoading(true);
+    }
     try {
       const items = await getAllContent();
+      cachedContent = items;
       setContent(items);
     } catch {}
     setLoading(false);
